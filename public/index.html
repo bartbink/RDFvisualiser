@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RDF Graph Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="controls">
+        <button id="updateGraph">Update Graph</button>
+        <button id="resetView">Reset View</button>
+        <button id="toggleView">Switch to Object View</button>
+    </div>
+    <textarea id="turtleInput" rows="25"></textarea>
+    <div id="mynetwork"></div>
+    <script src="script.js"></script>
+</body>
+
+</html>

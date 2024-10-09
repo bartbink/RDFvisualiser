@@ -1,0 +1,14 @@
+{
+  "name": "rdf-visualizer",
+  "version": "1.0.0",
+  "description": "Real-time RDF Graph Visualizer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.0.0",
+    "n3": "^1.16.2"
+  }
+}

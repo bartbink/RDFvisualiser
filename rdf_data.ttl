@@ -1,0 +1,81 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix : <http://example.org/bookstore/> .
+
+# Define Classes
+:Book rdf:type rdfs:Class .
+:Author rdf:type rdfs:Class .
+:Publisher rdf:type rdfs:Class .
+
+# Define Properties
+:hasAuthor rdf:type rdf:Property ;
+    rdfs:domain :Book ;
+    rdfs:range :Author .
+:hasPublisher rdf:type rdf:Property ;
+    rdfs:domain :Book ;
+    rdfs:range :Publisher .
+:title rdf:type rdf:Property ;
+    rdfs:domain :Book ;
+    rdfs:range xsd:string .
+:datePublished rdf:type rdf:Property ;
+    rdfs:domain :Book ;
+    rdfs:range xsd:date .
+:name rdf:type rdf:Property ;
+    rdfs:domain :Author ;
+    rdfs:domain :Publisher ;
+    rdfs:range rdfs:Literal .
+
+# Define Instances
+:book1 rdf:type :Book ;
+    :title "1984" ;
+    :hasAuthor :author1 .
+:book2 rdf:type :Book ;
+    :title "The Great Gatsby" ;
+    :hasAuthor :author2 .
+:author1 rdf:type :Author ;
+    :name "George Orwell" .
+:author2 rdf:type :Author ;
+    :name "F. Scott Fitzgerald" .
+
+# SHACL Shapes to define cardinalities
+
+:BookShape rdf:type sh:NodeShape ;
+    sh:targetClass :Book ;
+    sh:property [
+        sh:path :hasAuthor ;
+        sh:minCount 1 ;  # A book must have at least one author
+        sh:maxCount 1 ;  # A book can have at most one author
+    ] ;
+    sh:property [
+        sh:path :hasPublisher ;
+        sh:minCount 1 ;  # A book must have a publisher
+        sh:maxCount 1 ;  # A book can have at most one publisher
+    ] ;
+    sh:property [
+        sh:path :title ;
+        sh:minCount 1 ;  # A book must have a title
+        sh:maxCount 1 ;  # A book can have at most one title
+    ] ;
+    sh:property [
+        sh:path :datePublished ;
+        sh:minCount 0 ;  # Optional, so minimum count is 0
+        sh:maxCount 1 ;  # At most one publication date
+    ] .
+
+:AuthorShape rdf:type sh:NodeShape ;
+    sh:targetClass :Author ;
+    sh:property [
+        sh:path :name ;
+        sh:minCount 1 ;  # An author must have at least one name
+        sh:maxCount 1 ;  # An author can have at most one name
+    ] .
+
+:PublisherShape rdf:type sh:NodeShape ;
+    sh:targetClass :Publisher ;
+    sh:property [
+        sh:path :name ;
+        sh:minCount 1 ;  # A publisher must have at least one name
+        sh:maxCount 1 ;  # A publisher can have at most one name
+    ] .
